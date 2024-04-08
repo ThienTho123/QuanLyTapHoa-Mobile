@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/txtUsername"
+        android:id="@+id/edtUserregister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -20,7 +20,7 @@
         android:textStyle="italic" />
 
     <EditText
-        android:id="@+id/txtPassword"
+        android:id="@+id/edtPasswordregister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -34,7 +34,7 @@
         android:textStyle="italic" />
 
     <EditText
-        android:id="@+id/txtPassword2"
+        android:id="@+id/edtPassword2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

@@ -13,8 +13,8 @@
         <TextView
             android:id="@+id/TextView1"
             android:layout_width="327dp"
-            android:layout_height="match_parent"
-            android:background="#4328DD"
+            android:layout_height="83dp"
+            android:background="#5AEAC1"
             android:gravity="center|left"
             android:text="Danh Sách Nhân Viên "
             android:textColor="#FFFFFF"

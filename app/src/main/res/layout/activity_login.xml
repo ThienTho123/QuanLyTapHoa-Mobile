@@ -23,7 +23,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/txtUsername"
+        android:id="@+id/edtUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -34,7 +34,7 @@
         android:textStyle="italic" />
 
     <EditText
-        android:id="@+id/txtPassword"
+        android:id="@+id/edtsword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
