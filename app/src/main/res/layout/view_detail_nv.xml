@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgnvview"
+        android:layout_width="113dp"
+        android:layout_height="181dp" />
+
+    <TextView
+        android:id="@+id/txtIdview"
+        android:text="Mã nhân viên: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtNameView"
+        android:text="Tên nhân viên: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/txtchucvuView"
+        android:text="Chức vụ: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtsogiolamView"
+        android:text="Số giờ làm việc: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtluongView"
+        android:text="Lương: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtTongluong"
+        android:text="Tổng lương: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+</LinearLayout>

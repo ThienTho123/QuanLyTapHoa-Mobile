@@ -19,6 +19,12 @@
             android:orientation="vertical"
             android:layout_margin="10dp">
 
+            <ImageView
+                android:id="@+id/imgAddNv"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                tools:srcCompat="@drawable/nv" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,24 +42,33 @@
 
             <EditText
                 android:id="@+id/edtAddName"
-                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tên Nhân Viên " />
 
             <EditText
                 android:id="@+id/edtAddChucVu"
-                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Chức vụ" />
-
-
-            <ImageView
-                android:id="@+id/imgAddNv"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                tools:srcCompat="@drawable/nv" />
+            <EditText
+                android:id="@+id/edtAddsogiolam"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Số giờ làm" />
+            <EditText
+                android:id="@+id/edtAddluong"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Lương" />
+            <EditText
+                android:id="@+id/edtAddtongluong"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tổng lương" />
 
             <Button
                 android:id="@+id/btnAdd"

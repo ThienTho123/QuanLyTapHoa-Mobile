@@ -77,14 +77,67 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textSize="21dp"
-                    android:text="Chức vụ"/>
+                    android:text="Chức vụ: "/>
 
                 <EditText
-                    android:id="@+id/edtEditVolumetric"
+                    android:id="@+id/edtChucVu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="21dp"
+                    android:text="Số giờ làm: "/>
+
+                <EditText
+                    android:id="@+id/edtsogio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="21dp"
+                    android:text="Lương : "/>
+
+                <EditText
+                    android:id="@+id/edtluong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="21dp"
+                    android:text="Tổng lương: "/>
+
+                <EditText
+                    android:id="@+id/edttongluong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -112,6 +165,7 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

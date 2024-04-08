@@ -13,7 +13,7 @@
         android:background="#f2f2f2">
 
         <ImageView
-            android:id="@+id/imgProduct"
+            android:id="@+id/imgNV"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

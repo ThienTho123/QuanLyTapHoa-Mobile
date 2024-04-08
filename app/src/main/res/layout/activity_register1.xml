@@ -13,10 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:hint="Username"
+        android:hint="Tên đăng nhập"
         android:textColor="#100202"
         android:textColorHint="#090101"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textStyle="italic" />
 
     <EditText
         android:id="@+id/txtPassword"
@@ -24,12 +25,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:ems="10"
-        android:hint="Password"
+        android:hint="Mật khẩu "
         android:inputType="textPassword"
         android:paddingTop="20dp"
         android:textColor="#100101"
         android:textColorHint="#100101"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textStyle="italic" />
 
     <EditText
         android:id="@+id/txtPassword2"
@@ -37,12 +39,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:ems="10"
-        android:hint="Again Password"
+        android:hint="Nhập lại mật khẩu "
         android:inputType="textPassword"
         android:paddingTop="20dp"
         android:textColor="#100101"
         android:textColorHint="#100101"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textStyle="italic" />
 
     <Button
         android:id="@+id/btnSignUp"
@@ -56,15 +59,5 @@
         android:textAlignment="center"
         android:textColor="#fff"
         android:textSize="25dp" />
-
-    <TextView
-        android:id="@+id/link_login"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:gravity="center"
-        android:text="Already a member? Login"
-        android:textColor="#100101"
-        android:textSize="16dip" />
 
 </LinearLayout>
