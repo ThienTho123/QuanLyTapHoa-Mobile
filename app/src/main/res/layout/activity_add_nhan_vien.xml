@@ -29,20 +29,20 @@
 
 
             <EditText
-                android:id="@+id/edtAddName"
+                android:id="@+id/edtAddID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Mã nhân viên " />
 
             <EditText
-                android:id="@+id/edtAddPrice"
+                android:id="@+id/edtAddName"
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tên Nhân Viên " />
 
             <EditText
-                android:id="@+id/edtAddVolumetric"
+                android:id="@+id/edtAddChucVu"
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,10 +50,9 @@
 
 
             <ImageView
-                android:id="@+id/imgAddProduct"
+                android:id="@+id/imgAddNv"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:src="@drawable/hinh"
                 tools:srcCompat="@drawable/nv" />
 
             <Button
