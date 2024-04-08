@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Thêm nhân viên "
+                android:textSize="35sp"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/edtAddName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mã nhân viên " />
+
+            <EditText
+                android:id="@+id/edtAddPrice"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tên Nhân Viên " />
+
+            <EditText
+                android:id="@+id/edtAddVolumetric"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Chức vụ" />
+
+
+            <ImageView
+                android:id="@+id/imgAddProduct"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/hinh"
+                tools:srcCompat="@drawable/nv" />
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thêm"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
