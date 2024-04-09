@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Detail_NV" />
+        <activity android:name=".AddNhanVienActivity"/>
     </application>
 
 </manifest>

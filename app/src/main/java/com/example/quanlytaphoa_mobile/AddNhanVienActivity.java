@@ -69,6 +69,7 @@ public class AddNhanVienActivity extends AppCompatActivity {
 
             // Hiển thị thông báo
             Toast.makeText(this, "Thêm nhân viên thành công", Toast.LENGTH_SHORT).show();
+            finish();
 
             // Xóa nội dung trong EditText sau khi thêm thành công
             edtId.setText("");
