@@ -63,12 +63,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Lương" />
-            <EditText
-                android:id="@+id/edtAddtongluong"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Tổng lương" />
 
             <Button
                 android:id="@+id/btnAdd"

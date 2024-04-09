@@ -17,9 +17,7 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:background="#00000000"
-            android:src="@tools:sample/avatars"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:background="#00000000" />
     </LinearLayout>
 
     <EditText
