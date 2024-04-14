@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
 
             <ImageView
                 android:id="@+id/imgEditProduct"
-                android:src="@drawable/anhavatar"
+                android:src="@drawable/employee"
                 android:layout_width="120dp"
                 android:layout_height="150dp" />
 
@@ -33,12 +34,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_gravity="center_vertical"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="serif"
+                    android:text="Mã nhân viên: "
                     android:textSize="21dp"
-                    android:text="Mã nhân viên: "/>
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/edtMaNV"
@@ -53,12 +55,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="serif"
+                    android:text="Tên Nhân Viên: "
                     android:textSize="21dp"
-                    android:text="Tên Nhân Viên: "/>
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/edtEditName"
@@ -72,12 +75,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_gravity="center_vertical"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="serif"
+                    android:text="Chức vụ: "
                     android:textSize="21dp"
-                    android:text="Chức vụ: "/>
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/edtChucVu"
@@ -90,12 +94,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_gravity="center_vertical"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="serif"
+                    android:text="Số giờ làm: "
                     android:textSize="21dp"
-                    android:text="Số giờ làm: "/>
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/edtsogio"
@@ -108,12 +113,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_gravity="center_vertical"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="serif"
+                    android:text="Lương : "
                     android:textSize="21dp"
-                    android:text="Lương : "/>
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/edtluong"
@@ -126,12 +132,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_gravity="center_vertical"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="serif"
+                    android:text="Tổng lương: "
                     android:textSize="21dp"
-                    android:text="Tổng lương: "/>
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/edttongluong"
@@ -142,27 +149,33 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <Button
                     android:id="@+id/btnEdit"
-                    android:text="Sửa "
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:backgroundTint="#F44336"
+                    android:text="Sửa " />
+
                 <Button
                     android:id="@+id/btnDel"
-                    android:text="Xóa "
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:backgroundTint="#F44336"
+                    android:text="Xóa " />
+
                 <Button
                     android:id="@+id/btnExitEdit"
-                    android:text="Thoát"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:backgroundTint="#F44336"
+                    android:text="Thoát" />
 
             </LinearLayout>
 
