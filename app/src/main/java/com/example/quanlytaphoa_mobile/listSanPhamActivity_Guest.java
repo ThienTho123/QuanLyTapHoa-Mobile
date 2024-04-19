@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class listSanPhamActivity extends AppCompatActivity {
+public class listSanPhamActivity_Guest extends AppCompatActivity {
 
     private ListView listView;
     private List<Product> productList;
@@ -34,7 +34,7 @@ public class listSanPhamActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_sanpham);
+        setContentView(R.layout.activity_list_sanpham_guest);
 
         listView = findViewById(R.id.list_sanpham);
         productList = new ArrayList<>();
@@ -69,7 +69,7 @@ public class listSanPhamActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(listSanPhamActivity.this, "Không thể đọc dữ liệu từ Firebase", Toast.LENGTH_SHORT).show();
+                Toast.makeText(listSanPhamActivity_Guest.this, "Không thể đọc dữ liệu từ Firebase", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -78,7 +78,7 @@ public class listSanPhamActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Product selectedProduct = productList.get(position);
 
-                Intent intent = new Intent(listSanPhamActivity.this, Detail_Product.class);
+                Intent intent = new Intent(listSanPhamActivity_Guest.this, Detail_Product_Guest.class);
                 intent.putExtra("selected_product", selectedProduct);
                 intent.putExtra("productList", new ProductListWrapper(productList));
                 intent.putExtra("position", position);
@@ -106,7 +106,7 @@ public class listSanPhamActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.list_sanpham_menu, menu);
+        inflater.inflate(R.menu.guest_menu, menu);
         return true;
     }
 
@@ -122,27 +122,18 @@ public class listSanPhamActivity extends AppCompatActivity {
 
     private void showPopupMenu() {
         PopupMenu popupMenu = new PopupMenu(this, findViewById(R.id.menu));
-        popupMenu.inflate(R.menu.list_sanpham_menu);
+        popupMenu.inflate(R.menu.guest_menu);
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.action_add) {
-                    Intent intentAddProduct = new Intent(listSanPhamActivity.this, AddProductActivity.class);
-                    startActivity(intentAddProduct);
-                    return true;
-                }
+
                 if (item.getItemId() == R.id.action_return) {
-                    Intent intentAddProduct = new Intent(listSanPhamActivity.this, AdminActivity.class);
+                    Intent intentAddProduct = new Intent(listSanPhamActivity_Guest.this, MainActivity.class);
                     startActivity(intentAddProduct);
                     return true;
                 }
-                else if (item.getItemId() == R.id.action_logout) {
-                    Intent intentLogout = new Intent(listSanPhamActivity.this, MainActivity.class);
-                    startActivity(intentLogout);
-                    finish();
-                    return true;
-                }
+
                 return false;
             }
         });

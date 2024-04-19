@@ -34,7 +34,7 @@
         <activity android:name=".AddNhanVienActivity" />
         <activity android:name=".ViewDetailNhanVienActivity" />
         <activity android:name=".StaffActivity" />
-
+        <activity android:name=".listSanPhamActivity_Guest" />
         <activity android:name=".Detail_Product" />
         <activity android:name=".AddProductActivity"/>
     </application>

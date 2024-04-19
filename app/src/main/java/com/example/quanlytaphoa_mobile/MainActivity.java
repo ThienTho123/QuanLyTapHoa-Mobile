@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Chuyển sang activity_listsanpham_guest.xml khi nhấn nút Xem hàng hóa
-                Intent intent = new Intent(MainActivity.this, listSanPhamActivity_Staff.class);
+                Intent intent = new Intent(MainActivity.this, listSanPhamActivity_Guest.class);
                 startActivity(intent);
             }
         });
