@@ -22,12 +22,16 @@
             android:textSize="24sp"
             android:textStyle="bold|italic" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@android:drawable/btn_star"
-            tools:srcCompat="@drawable/plus" />
+        <Button
+            android:id="@+id/menu"
+            android:layout_width="74dp"
+            android:layout_height="51dp"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/list"
+            android:gravity="center_vertical|start"
+            android:padding="20dp" />
+
 
     </LinearLayout>
 

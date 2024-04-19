@@ -36,7 +36,7 @@
                 android:textStyle="italic" />
 
             <TextView
-                android:id="@+id/txtName_sp"
+                android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tên NV: "

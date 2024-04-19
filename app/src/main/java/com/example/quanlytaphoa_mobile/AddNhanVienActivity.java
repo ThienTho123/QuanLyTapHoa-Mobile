@@ -1,13 +1,13 @@
 package com.example.quanlytaphoa_mobile;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -42,7 +42,16 @@ public class AddNhanVienActivity extends AppCompatActivity {
                 addEmployee();
             }
         });
+        Button btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
+
 
     private void addEmployee() {
         // Lấy dữ liệu từ EditText
@@ -79,4 +88,5 @@ public class AddNhanVienActivity extends AppCompatActivity {
             edtSalary.setText("");
         }
     }
+
 }

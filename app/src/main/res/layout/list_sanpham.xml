@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical">
 
     <ImageView
-        android:id="@+id/ivImage"
-        android:layout_width="wrap_content"
-        android:layout_height="140dp"
-        android:layout_weight="1"
-        tools:srcCompat="@drawable/coca" />
+        android:id="@+id/txtpicture"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginRight="16dp">
+
+    </ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,21 +23,18 @@
             android:id="@+id/txtName_sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Tên sản phẩm"
-            android:textAlignment="textStart"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Tên sản phẩm"
             android:textColor="#111111"
-            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Giá"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Giá"
             android:textColor="#FF0066"
-            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 

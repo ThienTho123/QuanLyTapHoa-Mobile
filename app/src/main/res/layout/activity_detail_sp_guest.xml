@@ -96,19 +96,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_suasp"
-                android:layout_width="135dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#F44336"
-                android:text="Sửa " />
 
-            <Button
-                android:id="@+id/btn_xoasp"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#F44336"
-                android:text="Xóa" />
 
             <Button
                 android:id="@+id/btnExitEdit"

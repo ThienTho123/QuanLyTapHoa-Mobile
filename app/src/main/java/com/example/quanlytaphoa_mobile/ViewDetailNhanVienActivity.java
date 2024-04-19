@@ -1,8 +1,15 @@
 package com.example.quanlytaphoa_mobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,11 +45,17 @@ public class ViewDetailNhanVienActivity extends AppCompatActivity {
         txtSoGioLamView = findViewById(R.id.txtsogiolamView);
         txtLuongView = findViewById(R.id.txtluongView);
         txtTongLuong = findViewById(R.id.txtTongluong);
+        Button menuButton = findViewById(R.id.menu); // Thay ImageView bằng Button
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenu();
+            }
+        });
 
         // Lấy ID của tài khoản từ Intent
         String userID = getIntent().getStringExtra("userID");
         Log.d("UserID", "ID truyền vào: " + userID); // In ra giá trị của ID để kiểm tra
-
 
         // Truy vấn dữ liệu từ Firebase
         databaseReference.child("employee" + userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -77,5 +90,46 @@ public class ViewDetailNhanVienActivity extends AppCompatActivity {
                 Toast.makeText(ViewDetailNhanVienActivity.this, "Lỗi: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.list_sanpham_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu) {
+            showPopupMenu();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void showPopupMenu() {
+        PopupMenu popupMenu = new PopupMenu(this, findViewById(R.id.menu));
+        popupMenu.inflate(R.menu.nhanvien_menu);
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_return) {
+                    Intent intentAddProduct = new Intent(ViewDetailNhanVienActivity.this, StaffActivity.class);
+                    startActivity(intentAddProduct);
+                    return true;
+                } else if (item.getItemId() == R.id.action_logout) {
+                    Intent intentLogout = new Intent(ViewDetailNhanVienActivity.this, MainActivity.class);
+                    startActivity(intentLogout);
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        popupMenu.show();
     }
 }

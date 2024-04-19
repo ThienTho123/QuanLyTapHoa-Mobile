@@ -24,43 +24,40 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class listNhanVienActivity extends AppCompatActivity {
+public class listSanPhamActivity_Staff extends AppCompatActivity {
 
     private ListView listView;
-    private List<Employee> employeeList;
-    private EmployeeAdapter adapter;
+    private List<Product> productList;
+    private ProductAdapter adapter;
     private static final int DETAIL_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_nhan_vien);
+        setContentView(R.layout.activity_list_sanpham_staff);
 
-        listView = findViewById(R.id.lvNhanVien);
-        employeeList = new ArrayList<>();
-        adapter = new EmployeeAdapter(this, employeeList);
+        listView = findViewById(R.id.list_sanpham);
+        productList = new ArrayList<>();
+        adapter = new ProductAdapter(this, productList);
         listView.setAdapter(adapter);
-
-        Button menuButton = findViewById(R.id.menu);
-
+        Button menuButton = findViewById(R.id.menu); // Thay ImageView bằng Button
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPopupMenu();
             }
         });
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("employees");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("products");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                employeeList.clear();
+                productList.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Employee employee = snapshot.getValue(Employee.class);
-                    if (employee != null) {
-                        employeeList.add(employee);
+                    Product product = snapshot.getValue(Product.class);
+                    if (product != null) {
+                        productList.add(product);
                     }
                 }
 
@@ -69,18 +66,18 @@ public class listNhanVienActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(listNhanVienActivity.this, "Không thể đọc dữ liệu từ Firebase", Toast.LENGTH_SHORT).show();
+                Toast.makeText(listSanPhamActivity_Staff.this, "Không thể đọc dữ liệu từ Firebase", Toast.LENGTH_SHORT).show();
             }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Employee selectedEmployee = employeeList.get(position);
+                Product selectedProduct = productList.get(position);
 
-                Intent intent = new Intent(listNhanVienActivity.this, Detail_NV.class);
-                intent.putExtra("selected_employee", selectedEmployee);
-                intent.putExtra("employeeList", new EmployeeListWrapper(employeeList));
+                Intent intent = new Intent(listSanPhamActivity_Staff.this, Detail_Product_Guest.class);
+                intent.putExtra("selected_product", selectedProduct);
+                intent.putExtra("productList", new ProductListWrapper(productList));
                 intent.putExtra("position", position);
                 startActivityForResult(intent, DETAIL_ACTIVITY_REQUEST_CODE);
             }
@@ -92,15 +89,14 @@ public class listNhanVienActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == DETAIL_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            EmployeeListWrapper wrapper = (EmployeeListWrapper) data.getSerializableExtra("updated_employee_list");
-            List<Employee> updatedEmployeeList = wrapper.getEmployeeList();
+            ProductListWrapper wrapper = (ProductListWrapper) data.getSerializableExtra("updated_product_list");
+            List<Product> updatedProductList = wrapper.getProductList();
 
-            employeeList.clear();
-            employeeList.addAll(updatedEmployeeList);
+            productList.clear();
+            productList.addAll(updatedProductList);
             adapter.notifyDataSetChanged();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -120,23 +116,17 @@ public class listNhanVienActivity extends AppCompatActivity {
 
     private void showPopupMenu() {
         PopupMenu popupMenu = new PopupMenu(this, findViewById(R.id.menu));
-        popupMenu.inflate(R.menu.list_nhan_vien_menu);
+        popupMenu.inflate(R.menu.nhanvien_menu);
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.action_add) {
-                    Intent intentAddEmployee = new Intent(listNhanVienActivity.this, AddNhanVienActivity.class);
-                    startActivity(intentAddEmployee);
-                    return true;
-                }
                 if (item.getItemId() == R.id.action_return) {
-                    Intent intentAddProduct = new Intent(listNhanVienActivity.this, AdminActivity.class);
+                    Intent intentAddProduct = new Intent(listSanPhamActivity_Staff.this, StaffActivity.class);
                     startActivity(intentAddProduct);
                     return true;
-                }
-                else if (item.getItemId() == R.id.action_logout) {
-                    Intent intentLogout = new Intent(listNhanVienActivity.this, MainActivity.class);
+                } else if (item.getItemId() == R.id.action_logout) {
+                    Intent intentLogout = new Intent(listSanPhamActivity_Staff.this, MainActivity.class);
                     startActivity(intentLogout);
                     finish();
                     return true;

@@ -11,7 +11,6 @@
         android:id="@+id/imageView"
         android:layout_width="403dp"
         android:layout_height="647dp"
-        android:src="@tools:sample/avatars"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -25,7 +24,6 @@
         android:layout_width="434dp"
         android:layout_height="436dp"
         android:layout_marginTop="116dp"
-        android:src="@tools:sample/avatars"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -50,12 +48,12 @@
         app:layout_constraintVertical_bias="0.872" />
 
     <Button
-        android:id="@+id/btndangky"
+        android:id="@+id/btnhanghoa"
         android:layout_width="228dp"
         android:layout_height="61dp"
         android:backgroundTint="#F44336"
         android:fontFamily="serif"
-        android:text="Đăng ký tài khoản "
+        android:text="Xem hàng hóa"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

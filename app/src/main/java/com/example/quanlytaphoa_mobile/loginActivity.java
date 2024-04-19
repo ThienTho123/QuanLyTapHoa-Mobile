@@ -43,6 +43,15 @@ public class loginActivity extends AppCompatActivity {
                 loginUser();
             }
         });
+        Button btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chuyển về activity_main.xml khi nhấn nút "Quay lại"
+                Intent intent = new Intent(loginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loginUser() {
@@ -72,11 +81,11 @@ public class loginActivity extends AppCompatActivity {
                             // Kiểm tra quyền của tài khoản và chuyển hướng đến hoạt động tương ứng
                             if (storedRoll.equals("admin")) {
                                 // Chuyển hướng sang ListNhanVienActivity
-                                Intent intent = new Intent(loginActivity.this, listNhanVienActivity.class);
+                                Intent intent = new Intent(loginActivity.this, AdminActivity.class);
                                 startActivity(intent);
                             } else if (storedRoll.equals("nhanvien")) {
                                 // Chuyển hướng sang ViewDetailNhanVienActivity và truyền ID của tài khoản
-                                Intent intent = new Intent(loginActivity.this, ViewDetailNhanVienActivity.class);
+                                Intent intent = new Intent(loginActivity.this, StaffActivity.class);
                                 // Truyền ID của tài khoản
                                 intent.putExtra("userID", storedId);
                                 Log.d("UserID", "userID truyền vào: " + storedId);

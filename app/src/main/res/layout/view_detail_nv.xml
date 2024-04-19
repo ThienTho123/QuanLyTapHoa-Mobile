@@ -6,6 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/menu"
+        android:layout_width="74dp"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/list"
+        android:gravity="center_vertical|start"
+        android:padding="20dp"
+        android:layout_gravity="end" />
+
     <ImageView
         android:id="@+id/imgnvview"
         android:layout_width="113dp"

@@ -1,47 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/TextView1"
-            android:layout_width="334dp"
-            android:layout_height="match_parent"
+            android:id="@+id/textView2"
+            android:layout_width="354dp"
+            android:layout_height="57dp"
             android:background="#FF5722"
             android:fontFamily="serif"
-            android:gravity="center|left"
-            android:text="Danh Sách Nhân Viên "
+            android:text="Danh sách sản phẩm "
             android:textColor="#FFFFFF"
-            android:textSize="25sp">
-
-
-        </TextView>
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
 
         <Button
             android:id="@+id/menu"
             android:layout_width="74dp"
             android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/list"
             android:gravity="center_vertical|start"
-            android:padding="20dp" />
+            android:padding="15dp"
+            android:layout_gravity="end" />
+
+
     </LinearLayout>
 
     <ListView
-        android:id="@+id/lvNhanVien"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:background="#ffe8e8e8"
-        android:divider="#ffe8e8e8"
-        android:dividerHeight="0dp" />
+        android:id="@+id/list_sanpham"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </ListView>
 
 </LinearLayout>
