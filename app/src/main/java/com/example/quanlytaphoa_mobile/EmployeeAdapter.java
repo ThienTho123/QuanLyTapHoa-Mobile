@@ -1,13 +1,17 @@
 package com.example.quanlytaphoa_mobile;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.quanlytaphoa_mobile.Employee;
+
+import java.io.InputStream;
 import java.util.List;
 
 public class EmployeeAdapter extends ArrayAdapter<Employee> {
@@ -44,6 +48,31 @@ public class EmployeeAdapter extends ArrayAdapter<Employee> {
         txtName.setText(currentEmployee.getName());
         txtchucvu.setText(currentEmployee.getChucvu());
 
+        new DownloadImageTask(imgNV).execute(currentEmployee.getPicture());
+
         return listItemView;
+    }
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView imageView;
+
+        public DownloadImageTask(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urlDisplay = urls[0];
+            Bitmap bitmap = null;
+            try {
+                InputStream in = new java.net.URL(urlDisplay).openStream();
+                bitmap = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
+        }
     }
 }

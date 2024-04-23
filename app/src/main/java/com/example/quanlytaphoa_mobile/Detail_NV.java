@@ -1,32 +1,55 @@
 package com.example.quanlytaphoa_mobile;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 public class Detail_NV extends AppCompatActivity {
+
+    ImageView imageView;
+    StorageReference storageReference;
     private List<Employee> employeeList;
     private int position;
     private EmployeeAdapter adapter; // Khai báo biến adapter
     private Spinner spinnerChucVu; // Thêm Spinner
     private String selectedChucVu; // Thêm biến lưu trữ chức vụ được chọn
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private Employee selectedEmployees;
+
+    private Uri imageUri; // Thêm biến imageUri ở mức lớp
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +79,28 @@ public class Detail_NV extends AppCompatActivity {
         int tongLuong = selectedEmployee.getHoursWorked() * selectedEmployee.getSalary();
         txtTongLuong.setText(String.valueOf(tongLuong));
 
+        String imageUrl = getIntent().getStringExtra("image_url");
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            // Sử dụng Glide, Picasso hoặc thậm chí BitmapFactory để tải hình ảnh từ URL và đặt cho imageView
+            // Ở đây tôi sẽ sử dụng BitmapFactory để minh họa
+            new LoadImageTask(imageView).execute(imageUrl);
+        }
+
+        imageView  = findViewById(R.id.imageViewNV);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openImageChooser();
+            }
+        });
+        String imageUrlFromIntent = getIntent().getStringExtra("image_url");
+        if (imageUrlFromIntent != null && !imageUrlFromIntent.isEmpty()) {
+            // Sử dụng Glide, Picasso hoặc thậm chí BitmapFactory để tải hình ảnh từ URL và đặt cho imageView
+            // Ở đây tôi sẽ sử dụng BitmapFactory để minh họa
+            new LoadImageTask(imageView).execute(imageUrlFromIntent);
+        }
+        storageReference = FirebaseStorage.getInstance().getReference();
+
         // Khởi tạo adapter
         adapter = new EmployeeAdapter(this, employeeList);
 
@@ -81,28 +126,66 @@ public class Detail_NV extends AppCompatActivity {
                 int newLuong = Integer.parseInt(txtLuong.getText().toString());
                 String employeeKey = "employee" + selectedEmployee.getId();
 
-
                 // Cập nhật thông tin nhân viên trong Firebase
                 DatabaseReference employeeRef = FirebaseDatabase.getInstance().getReference().child("employees").child(employeeKey);
-                Employee updatedEmployee = new Employee(newId, newName, selectedChucVu, newSogio, newLuong); // Sử dụng selectedChucVu
-                employeeRef.setValue(updatedEmployee).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // Hiển thị thông báo sửa thành công (nếu cần)
-                        Toast.makeText(Detail_NV.this, "Sửa thông tin nhân viên thành công", Toast.LENGTH_SHORT).show();
 
-                        // Kết thúc activity và quay lại danh sách nhân viên
-                        finish();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Xử lý trường hợp sửa thông tin thất bại từ Firebase (nếu cần)
-                        Toast.makeText(Detail_NV.this, "Sửa thông tin nhân viên không thành công", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                // Lấy chức vụ được chọn từ Spinner
+                selectedChucVu = spinnerChucVu.getSelectedItem().toString();
+
+                // Nếu có ảnh mới được chọn
+                if (imageUri != null) {
+                    StorageReference imageRef = storageReference.child("images/" + selectedEmployee.getId() + ".jpg");
+
+                    imageRef.putFile(imageUri)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            String imageURL = uri.toString();
+                                            Employee updatedEmployee = new Employee(newId, newName, selectedChucVu, newSogio, newLuong, imageURL);
+                                            employeeRef.setValue(updatedEmployee).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(Detail_NV.this, "Sửa thông tin nhân viên thành công", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(Detail_NV.this, "Sửa thông tin nhân viên không thành công", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(Detail_NV.this, "Lỗi khi tải ảnh lên: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    // Nếu không có ảnh mới được chọn, chỉ cập nhật thông tin sản phẩm không thay đổi về ảnh
+                    Employee updatedEmployee = new Employee(newId, newName, selectedChucVu, newSogio, newLuong, selectedEmployee.getPicture());
+                    employeeRef.setValue(updatedEmployee).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(Detail_NV.this, "Sửa thông tin nhân viên thành công", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Detail_NV.this, "Sửa thông tin nhân viên không thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
+
 
         Button btnDel = findViewById(R.id.btnDel);
         btnDel.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +245,55 @@ public class Detail_NV extends AppCompatActivity {
                 // Xử lý khi không có mục nào được chọn
             }
         });
+    }
+
+    private void openImageChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Chọn ảnh sản phẩm"), PICK_IMAGE_REQUEST);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            // Lấy URI của ảnh được chọn từ Intent
+            imageUri = data.getData();
+
+            // Hiển thị ảnh được chọn trong ImageView
+            imageView.setImageURI(imageUri);
+        }
+    }
+    private static class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
+        private final WeakReference<ImageView> imageViewReference;
+
+        public LoadImageTask(ImageView imageView) {
+            imageViewReference = new WeakReference<>(imageView);
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+            String imageUrl = urls[0];
+            try {
+                URL url = new URL(imageUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream inputStream = connection.getInputStream();
+                return BitmapFactory.decodeStream(inputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (bitmap != null && imageViewReference != null && imageViewReference.get() != null) {
+                imageViewReference.get().setImageBitmap(bitmap);
+            }
+        }
     }
 
 }

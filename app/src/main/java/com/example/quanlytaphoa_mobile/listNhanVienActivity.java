@@ -82,6 +82,8 @@ public class listNhanVienActivity extends AppCompatActivity {
                 intent.putExtra("selected_employee", selectedEmployee);
                 intent.putExtra("employeeList", new EmployeeListWrapper(employeeList));
                 intent.putExtra("position", position);
+                intent.putExtra("image_url", selectedEmployee.getPicture()); // Thêm dòng này để chuyển URL hình ảnh
+
                 startActivityForResult(intent, DETAIL_ACTIVITY_REQUEST_CODE);
             }
         });
@@ -104,7 +106,7 @@ public class listNhanVienActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.list_sanpham_menu, menu);
+        inflater.inflate(R.menu.list_nhan_vien_menu, menu);
         return true;
     }
 

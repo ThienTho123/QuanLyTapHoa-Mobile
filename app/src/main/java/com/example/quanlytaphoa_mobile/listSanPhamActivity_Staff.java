@@ -2,6 +2,7 @@ package com.example.quanlytaphoa_mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,7 +36,8 @@ public class listSanPhamActivity_Staff extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_sanpham_staff);
-
+        String userID = getIntent().getStringExtra("userID");
+        Log.d("EmployeeID", "ID nhân viên: " + userID);
         listView = findViewById(R.id.list_sanpham);
         productList = new ArrayList<>();
         adapter = new ProductAdapter(this, productList);
@@ -79,6 +81,8 @@ public class listSanPhamActivity_Staff extends AppCompatActivity {
                 intent.putExtra("selected_product", selectedProduct);
                 intent.putExtra("productList", new ProductListWrapper(productList));
                 intent.putExtra("position", position);
+                intent.putExtra("image_url", selectedProduct.getPicture()); // Thêm dòng này để chuyển URL hình ảnh
+
                 startActivityForResult(intent, DETAIL_ACTIVITY_REQUEST_CODE);
             }
         });
@@ -123,10 +127,12 @@ public class listSanPhamActivity_Staff extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.action_return) {
                     Intent intentAddProduct = new Intent(listSanPhamActivity_Staff.this, StaffActivity.class);
+                    intentAddProduct.putExtra("userID", getIntent().getStringExtra("userID"));
                     startActivity(intentAddProduct);
                     return true;
                 } else if (item.getItemId() == R.id.action_logout) {
                     Intent intentLogout = new Intent(listSanPhamActivity_Staff.this, MainActivity.class);
+                    intentLogout.putExtra("userID", getIntent().getStringExtra("userID"));
                     startActivity(intentLogout);
                     finish();
                     return true;

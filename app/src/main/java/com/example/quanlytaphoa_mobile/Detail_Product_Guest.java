@@ -44,6 +44,8 @@ public class Detail_Product_Guest extends AppCompatActivity {
 
         EditText txtPrice = findViewById(R.id.edt_gia);
         txtPrice.setText(String.valueOf(selectedProduct.getPrice()));
+        txtPrice.setText(String.format("%d", (int) selectedProduct.getPrice()));
+
 
         String imageUrlFromIntent = getIntent().getStringExtra("image_url");
         imageView = findViewById(R.id.imageView3);

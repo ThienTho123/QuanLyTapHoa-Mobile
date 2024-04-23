@@ -46,6 +46,9 @@
                 android:id="@+id/edtEditName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:hint="Enter Product Name" />
 
         </TableRow>
@@ -67,6 +70,9 @@
                 android:layout_width="261dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:inputType="text" />
         </TableRow>
 
@@ -88,6 +94,9 @@
                 android:layout_width="265dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:inputType="text" />
         </TableRow>
 

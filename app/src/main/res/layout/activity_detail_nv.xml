@@ -21,10 +21,10 @@
             android:paddingTop="@dimen/activity_vertical_margin">
 
             <ImageView
-                android:id="@+id/imgEditProduct"
+                android:id="@+id/imageViewNV"
                 android:src="@drawable/employee"
-                android:layout_width="120dp"
-                android:layout_height="150dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="300dp" />
 
 
 

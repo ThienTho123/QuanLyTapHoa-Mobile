@@ -2,6 +2,7 @@ package com.example.quanlytaphoa_mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ public class StaffActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.staff);
         String userID = getIntent().getStringExtra("userID");
+        Log.d("EmployeeID", "ID nhân viên: " + userID);
 
         ImageView imageViewStaff = findViewById(R.id.imageView5);
 
@@ -48,6 +50,8 @@ public class StaffActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Chuyển sang activity_list_sanpham_guest.xml khi nhấn nút "Sản phẩm"
                 Intent intent = new Intent(StaffActivity.this, listSanPhamActivity_Staff.class);
+                intent.putExtra("userID", userID);
+
                 startActivity(intent);
             }
         });

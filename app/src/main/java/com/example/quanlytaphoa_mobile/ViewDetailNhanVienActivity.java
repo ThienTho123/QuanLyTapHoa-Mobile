@@ -1,6 +1,9 @@
 package com.example.quanlytaphoa_mobile;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +24,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class ViewDetailNhanVienActivity extends AppCompatActivity {
 
@@ -53,9 +61,9 @@ public class ViewDetailNhanVienActivity extends AppCompatActivity {
             }
         });
 
-        // Lấy ID của tài khoản từ Intent
+        // Lấy ID của nhân viên từ Intent
         String userID = getIntent().getStringExtra("userID");
-        Log.d("UserID", "ID truyền vào: " + userID); // In ra giá trị của ID để kiểm tra
+        Log.d("EmployeeID", "ID truyền vào: " + userID); // In ra giá trị của ID để kiểm tra
 
         // Truy vấn dữ liệu từ Firebase
         databaseReference.child("employee" + userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -80,6 +88,12 @@ public class ViewDetailNhanVienActivity extends AppCompatActivity {
                     txtSoGioLamView.setText("Số giờ làm việc: " + soGioLam);
                     txtLuongView.setText("Lương: " + luong);
                     txtTongLuong.setText("Tổng lương: " + tongLuong);
+
+                    // Load ảnh từ Firebase Storage vào ImageView
+                    String imageUrl = dataSnapshot.child("picture").getValue(String.class);
+                    if (imageUrl != null && !imageUrl.isEmpty()) {
+                        new LoadImageTask().execute(imageUrl);
+                    }
                 } else {
                     Toast.makeText(ViewDetailNhanVienActivity.this, "Không tìm thấy thông tin nhân viên", Toast.LENGTH_SHORT).show();
                 }
@@ -118,10 +132,14 @@ public class ViewDetailNhanVienActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.action_return) {
                     Intent intentAddProduct = new Intent(ViewDetailNhanVienActivity.this, StaffActivity.class);
+                    intentAddProduct.putExtra("userID", getIntent().getStringExtra("userID"));
+                    startActivity(intentAddProduct);
                     startActivity(intentAddProduct);
                     return true;
                 } else if (item.getItemId() == R.id.action_logout) {
                     Intent intentLogout = new Intent(ViewDetailNhanVienActivity.this, MainActivity.class);
+                    intentLogout.putExtra("userID", getIntent().getStringExtra("userID"));
+                    startActivity(intentLogout);
                     startActivity(intentLogout);
                     finish();
                     return true;
@@ -131,5 +149,30 @@ public class ViewDetailNhanVienActivity extends AppCompatActivity {
         });
 
         popupMenu.show();
+    }
+
+    private class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+            String imageUrl = urls[0];
+            try {
+                URL url = new URL(imageUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                return BitmapFactory.decodeStream(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (bitmap != null) {
+                imageView.setImageBitmap(bitmap);
+            }
+        }
     }
 }

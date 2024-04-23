@@ -44,7 +44,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         new DownloadImageTask(imgProduct).execute(currentProduct.getPicture());
 
         txtProductName.setText(currentProduct.getProductName());
-        txtPrice.setText(String.valueOf(currentProduct.getPrice()));
+        txtPrice.setText(String.format("%d", (int) currentProduct.getPrice()));
 
         return listItemView;
     }
