@@ -3,8 +3,11 @@ package com.example.quanlytaphoa_mobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +25,8 @@ public class Detail_NV extends AppCompatActivity {
     private List<Employee> employeeList;
     private int position;
     private EmployeeAdapter adapter; // Khai báo biến adapter
+    private Spinner spinnerChucVu; // Thêm Spinner
+    private String selectedChucVu; // Thêm biến lưu trữ chức vụ được chọn
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +43,8 @@ public class Detail_NV extends AppCompatActivity {
         EditText txtName = findViewById(R.id.edtEditName);
         txtName.setText(selectedEmployee.getName());
 
-        EditText txtChucVu = findViewById(R.id.edtChucVu);
-        txtChucVu.setText(selectedEmployee.getChucvu());
+        spinnerChucVu = findViewById(R.id.spinnerChucVu);
+        setupSpinner();
 
         EditText txtSogio = findViewById(R.id.edtsogio);
         txtSogio.setText(String.valueOf(selectedEmployee.getHoursWorked()));
@@ -72,7 +77,6 @@ public class Detail_NV extends AppCompatActivity {
                 // Lấy thông tin mới từ các EditText
                 String newId = txtId.getText().toString(); // Lấy mã nhân viên mới
                 String newName = txtName.getText().toString();
-                String newChucVu = txtChucVu.getText().toString();
                 int newSogio = Integer.parseInt(txtSogio.getText().toString());
                 int newLuong = Integer.parseInt(txtLuong.getText().toString());
                 String employeeKey = "employee" + selectedEmployee.getId();
@@ -80,7 +84,7 @@ public class Detail_NV extends AppCompatActivity {
 
                 // Cập nhật thông tin nhân viên trong Firebase
                 DatabaseReference employeeRef = FirebaseDatabase.getInstance().getReference().child("employees").child(employeeKey);
-                Employee updatedEmployee = new Employee(newId, newName, newChucVu, newSogio, newLuong);
+                Employee updatedEmployee = new Employee(newId, newName, selectedChucVu, newSogio, newLuong); // Sử dụng selectedChucVu
                 employeeRef.setValue(updatedEmployee).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -134,4 +138,30 @@ public class Detail_NV extends AppCompatActivity {
             }
         });
     }
+    private void setupSpinner() {
+        // Lấy danh sách chức vụ từ mảng string chuc_vu_array trong file string.xml
+        String[] chucVuArray = getResources().getStringArray(R.array.chuc_vu_array);
+
+        // Tạo Adapter cho Spinner sử dụng mảng string chuc_vu_array
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, chucVuArray);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Thiết lập Adapter cho Spinner
+        spinnerChucVu.setAdapter(spinnerAdapter);
+
+        // Xử lý sự kiện khi một mục được chọn trên Spinner
+        spinnerChucVu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy chức vụ được chọn từ mảng string chuc_vu_array
+                selectedChucVu = chucVuArray[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Xử lý khi không có mục nào được chọn
+            }
+        });
+    }
+
 }

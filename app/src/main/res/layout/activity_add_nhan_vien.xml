@@ -48,12 +48,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tên Nhân Viên " />
-
-            <EditText
-                android:id="@+id/edtAddChucVu"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Chức vụ" />
+                android:text="Chọn chức vụ:"
+                android:textColor="#A9A9A9"
+                android:textSize="19sp" />
+            <Spinner
+                android:id="@+id/spinnerChucVu"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="1dp"/>
             <EditText
                 android:id="@+id/edtAddsogiolam"
                 android:inputType="number"
