@@ -16,8 +16,8 @@
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="match_parent"
-                android:layout_height="259dp"
-                tools:srcCompat="@drawable/coca" />
+                android:layout_height="200dp"
+                android:src="@drawable/productadd" />
 
             <TextView
                 android:id="@+id/textView"

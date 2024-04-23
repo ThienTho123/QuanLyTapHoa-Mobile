@@ -37,6 +37,9 @@
         <activity android:name=".listSanPhamActivity_Guest" />
         <activity android:name=".Detail_Product" />
         <activity android:name=".AddProductActivity"/>
+        <activity android:name=".Detail_NV"/>
+
+
     </application>
 
 </manifest>

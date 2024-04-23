@@ -2,7 +2,6 @@ package com.example.quanlytaphoa_mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,6 +70,7 @@ public class Detail_NV extends AppCompatActivity {
                 Employee selectedEmployee = employeeList.get(position);
 
                 // Lấy thông tin mới từ các EditText
+                String newId = txtId.getText().toString(); // Lấy mã nhân viên mới
                 String newName = txtName.getText().toString();
                 String newChucVu = txtChucVu.getText().toString();
                 int newSogio = Integer.parseInt(txtSogio.getText().toString());
@@ -80,7 +80,7 @@ public class Detail_NV extends AppCompatActivity {
 
                 // Cập nhật thông tin nhân viên trong Firebase
                 DatabaseReference employeeRef = FirebaseDatabase.getInstance().getReference().child("employees").child(employeeKey);
-                Employee updatedEmployee = new Employee(selectedEmployee.getId(), newName, newChucVu, newSogio, newLuong);
+                Employee updatedEmployee = new Employee(newId, newName, newChucVu, newSogio, newLuong);
                 employeeRef.setValue(updatedEmployee).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

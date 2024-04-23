@@ -24,7 +24,7 @@
                 android:id="@+id/imgAddNv"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                tools:srcCompat="@drawable/nv" />
+                android:src="@drawable/nv" />
 
             <TextView
                 android:layout_width="match_parent"

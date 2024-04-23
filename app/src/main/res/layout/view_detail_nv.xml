@@ -18,47 +18,68 @@
 
     <ImageView
         android:id="@+id/imgnvview"
-        android:layout_width="113dp"
-        android:layout_height="181dp" />
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/employee"/>
 
     <TextView
         android:id="@+id/txtIdview"
         android:text="Mã nhân viên: "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/txtNameView"
         android:text="Tên nhân viên: "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
     <TextView
         android:id="@+id/txtchucvuView"
         android:text="Chức vụ: "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/txtsogiolamView"
         android:text="Số giờ làm việc: "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/txtluongView"
         android:text="Lương: "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/txtTongluong"
         android:text="Tổng lương: "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
 </LinearLayout>
