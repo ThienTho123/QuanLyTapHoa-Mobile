@@ -2,6 +2,8 @@ package com.example.quanlytaphoa_mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -31,6 +34,8 @@ public class listSanPhamActivity_Staff extends AppCompatActivity {
     private List<Product> productList;
     private ProductAdapter adapter;
     private static final int DETAIL_ACTIVITY_REQUEST_CODE = 1;
+    private EditText searchEditText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,8 @@ public class listSanPhamActivity_Staff extends AppCompatActivity {
         String userID = getIntent().getStringExtra("userID");
         Log.d("EmployeeID", "ID nhân viên: " + userID);
         listView = findViewById(R.id.list_sanpham);
+        searchEditText = findViewById(R.id.searchEditText);
+
         productList = new ArrayList<>();
         adapter = new ProductAdapter(this, productList);
         listView.setAdapter(adapter);
@@ -86,6 +93,36 @@ public class listSanPhamActivity_Staff extends AppCompatActivity {
                 startActivityForResult(intent, DETAIL_ACTIVITY_REQUEST_CODE);
             }
         });
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No need to implement anything here
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Called when text is changed
+                String searchText = s.toString().toLowerCase().trim(); // Chuyển đổi text thành chữ thường và loại bỏ khoảng trắng ở đầu và cuối
+                searchProducts(searchText);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // No need to implement anything here
+            }
+        });
+    }
+    private void searchProducts(String searchText) {
+        List<Product> filteredList = new ArrayList<>();
+
+        for (Product product : productList) {
+            if (product.getProductName().toLowerCase().contains(searchText)) {
+                filteredList.add(product);
+            }
+        }
+
+        adapter = new ProductAdapter(this, filteredList);
+        listView.setAdapter(adapter);
     }
 
     @Override

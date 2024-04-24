@@ -2,12 +2,15 @@ package com.example.quanlytaphoa_mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -30,6 +33,8 @@ public class listNhanVienActivity extends AppCompatActivity {
     private List<Employee> employeeList;
     private EmployeeAdapter adapter;
     private static final int DETAIL_ACTIVITY_REQUEST_CODE = 1;
+    private EditText searchEditText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,8 @@ public class listNhanVienActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_nhan_vien);
 
         listView = findViewById(R.id.lvNhanVien);
+        searchEditText = findViewById(R.id.searchEditText);
+
         employeeList = new ArrayList<>();
         adapter = new EmployeeAdapter(this, employeeList);
         listView.setAdapter(adapter);
@@ -87,6 +94,38 @@ public class listNhanVienActivity extends AppCompatActivity {
                 startActivityForResult(intent, DETAIL_ACTIVITY_REQUEST_CODE);
             }
         });
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No need to implement anything here
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Called when text is changed
+                String searchText = s.toString().toLowerCase().trim(); // Chuyển đổi text thành chữ thường và loại bỏ khoảng trắng ở đầu và cuối
+                searchEmployees(searchText);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // No need to implement anything here
+            }
+        });
+    }
+
+    private void searchEmployees(String searchText) {
+        List<Employee> filteredList = new ArrayList<>();
+
+        for (Employee employee : employeeList) {
+            // Tìm kiếm theo tên hoặc ID
+            if (employee.getName().toLowerCase().contains(searchText) || employee.getId().toLowerCase().contains(searchText)) {
+                filteredList.add(employee);
+            }
+        }
+
+        adapter = new EmployeeAdapter(this, filteredList);
+        listView.setAdapter(adapter);
     }
 
     @Override

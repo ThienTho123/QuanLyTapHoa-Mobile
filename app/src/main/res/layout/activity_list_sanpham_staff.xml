@@ -35,6 +35,12 @@
 
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập tên sản phẩm tìm kiếm" />
+
     <ListView
         android:id="@+id/list_sanpham"
         android:layout_width="match_parent"

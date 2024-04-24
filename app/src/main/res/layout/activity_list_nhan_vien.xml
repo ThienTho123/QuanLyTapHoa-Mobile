@@ -35,6 +35,12 @@
             android:padding="20dp" />
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tim kiếm ID hoặc tên nhân viên" />
+
     <ListView
         android:id="@+id/lvNhanVien"
         android:layout_width="fill_parent"
