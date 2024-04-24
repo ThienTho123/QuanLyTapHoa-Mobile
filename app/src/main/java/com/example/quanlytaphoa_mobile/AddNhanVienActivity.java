@@ -40,6 +40,8 @@ public class AddNhanVienActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri; // Thêm biến imageUri ở mức lớp
     private int employeeCount = 0; // Biến để lưu số lượng sản phẩm hiện tại
+    private static final String DEFAULT_IMAGE_URL = "https://firebasestorage.googleapis.com/v0/b/quanlytaphoa-mobile.appspot.com/o/images%2Femployee.png?alt=media&token=0f36221a-5e0c-4620-b935-eda560fa9e76";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,56 +144,127 @@ public class AddNhanVienActivity extends AppCompatActivity {
                 TextUtils.isEmpty(hoursWorkedStr) || TextUtils.isEmpty(salaryStr)) {
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         } else {
-            // Chuyển đổi dữ liệu số giờ làm và lương từ chuỗi sang số nguyên
-            int hoursWorked = Integer.parseInt(hoursWorkedStr);
-            int salary = Integer.parseInt(salaryStr);
-            String newEmployeeID = String.format("%05d", ++employeeCount); // Format ID mới
+            databaseReference.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // Mã nhân viên đã tồn tại
+                        Toast.makeText(AddNhanVienActivity.this, "Mã nhân viên đã tồn tại", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Mã nhân viên chưa tồn tại, tiến hành thêm nhân viên mới
+                        // Chuyển đổi dữ liệu số giờ làm và lương từ chuỗi sang số nguyên
+                        int hoursWorked = Integer.parseInt(hoursWorkedStr);
+                        int salary = Integer.parseInt(salaryStr);
 
-            StorageReference imageRef = storageReference.child("images/" + newEmployeeID + name + ".jpg");
+                        StorageReference imageRef;
+                        if (imageUri == null) {
+                            // Nếu người dùng không chọn ảnh, sử dụng ảnh mặc định
+                            imageRef = storageReference.child("images/employee_" + id + name + ".jpg");
+                            // Sử dụng URL mặc định
+                            Employee employee = new Employee(id, name, chucvu, hoursWorked, salary, DEFAULT_IMAGE_URL);
+                            // Thêm sản phẩm vào Firebase Database
+                            databaseReference.child(id).setValue(employee);
+                            // Cập nhật số lượng sản phẩm
+                            employeeCountRef.setValue(employeeCount);
+                            createAndSaveUserAccount(id, name, chucvu);
+                            // Hiển thị thông báo
+                            Toast.makeText(AddNhanVienActivity.this, "Thêm nhân viên thành công", Toast.LENGTH_SHORT).show();
+                            // Chuyển về lại trang listSanPhamActivity
+                            Intent intent = new Intent(AddNhanVienActivity.this, listNhanVienActivity.class);
+                            startActivity(intent);
+                            finish();
+                            // Xóa nội dung trong EditText sau khi thêm thành công
+                            edtId.setText("");
+                            edtName.setText("");
+                            edtHoursWorked.setText("");
+                            edtSalary.setText("");
+                        } else {
+                            // Ngược lại, nếu người dùng chọn ảnh, tải ảnh lên Firebase Storage
+                            imageRef = storageReference.child("images/" + id + name + ".jpg");
+                            imageRef.putFile(imageUri)
+                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            // Nếu tải lên thành công, lấy URL của ảnh
+                                            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    // Lấy URL thành công, lưu URL vào Firebase Database
+                                                    String imageURL = uri.toString();
 
-            imageRef.putFile(imageUri)
+                                                    // Tạo đối tượng Product mới với URL ảnh
+                                                    Employee employee = new Employee(id, name, chucvu, hoursWorked, salary, imageURL);
+                                                    // Thêm sản phẩm vào Firebase Database
+                                                    databaseReference.child(id).setValue(employee);
+                                                    // Cập nhật số lượng sản phẩm
+                                                    employeeCountRef.setValue(employeeCount);
 
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // Nếu tải lên thành công, lấy URL của ảnh
-                            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    // Lấy URL thành công, lưu URL vào Firebase Database
-                                    String imageURL = uri.toString();
+                                                    createAndSaveUserAccount(id, name, chucvu);
 
-                                    // Tạo đối tượng Product mới với URL ảnh
-                                    Employee employee = new Employee(id, name, chucvu, hoursWorked, salary, imageURL);
-                                    // Thêm sản phẩm vào Firebase Database
-                                    databaseReference.child(newEmployeeID).setValue(employee);
-                                    // Cập nhật số lượng sản phẩm
-                                    employeeCountRef.setValue(employeeCount);
-                                    // Hiển thị thông báo
-                                    Toast.makeText(AddNhanVienActivity.this, "Thêm nhân viên thành công", Toast.LENGTH_SHORT).show();
-                                    // Chuyển về lại trang listSanPhamActivity
-                                    Intent intent = new Intent(AddNhanVienActivity.this, listNhanVienActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    // Xóa nội dung trong EditText sau khi thêm thành công
-                                    edtId.setText("");
-                                    edtName.setText("");
-                                    edtHoursWorked.setText("");
-                                    edtSalary.setText("");
-                                }
-                            });
+                                                    // Hiển thị thông báo
+                                                    Toast.makeText(AddNhanVienActivity.this, "Thêm nhân viên thành công", Toast.LENGTH_SHORT).show();
+                                                    // Chuyển về lại trang listSanPhamActivity
+                                                    Intent intent = new Intent(AddNhanVienActivity.this, listNhanVienActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                    // Xóa nội dung trong EditText sau khi thêm thành công
+                                                    edtId.setText("");
+                                                    edtName.setText("");
+                                                    edtHoursWorked.setText("");
+                                                    edtSalary.setText("");
+                                                }
+                                            });
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Xử lý khi có lỗi xảy ra trong quá trình tải ảnh lên
+                                            Toast.makeText(AddNhanVienActivity.this, "Lỗi khi tải ảnh lên: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // Xử lý khi có lỗi xảy ra trong quá trình tải ảnh lên
-                            Toast.makeText(AddNhanVienActivity.this, "Lỗi khi tải ảnh lên: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
 
+                        // Tiến hành thêm nhân viên mới
+                        // Code thêm nhân viên vào Firebase tại đây
+                    }
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Xử lý khi có lỗi xảy ra trong quá trình đọc dữ liệu từ Firebase Database
+                    Toast.makeText(AddNhanVienActivity.this, "Lỗi khi đọc dữ liệu từ Firebase Database: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
+    }
+    private void createAndSaveUserAccount(String id, String name, String chucvu) {
+        String roll = chucvu.equalsIgnoreCase("Quản lí") ? "admin" : "nhanvien";
+        String username = name.toLowerCase().replaceAll("\\s+", ""); // Tạo username từ tên nhân viên (viết liền không dấu)
+        String password = name.toLowerCase().replaceAll("\\s+", "") + id; // Tạo password từ tên nhân viên và mã nhân viên (viết liền không dấu)
+
+        // Tạo đối tượng UserAccount mới
+        UserAccount userAccount = new UserAccount(id, username, password, roll);
+
+        // Tham chiếu đến node "user_accounts" trên Firebase
+        DatabaseReference userAccountRef = FirebaseDatabase.getInstance().getReference().child("account");
+
+        // Lưu thông tin tài khoản người dùng vào Firebase
+        userAccountRef.child(id).setValue(userAccount)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Xử lý khi lưu tài khoản người dùng thành công
+                        Toast.makeText(AddNhanVienActivity.this, "Tạo tài khoản người dùng thành công", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Xử lý khi có lỗi xảy ra trong quá trình lưu tài khoản người dùng
+                        Toast.makeText(AddNhanVienActivity.this, "Lỗi khi tạo tài khoản người dùng: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

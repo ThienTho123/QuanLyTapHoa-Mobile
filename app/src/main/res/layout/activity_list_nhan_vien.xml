@@ -17,6 +17,7 @@
             android:background="#FF5722"
             android:fontFamily="serif"
             android:gravity="center|left"
+            android:textStyle="bold|italic"
             android:text="Danh Sách Nhân Viên "
             android:textColor="#FFFFFF"
             android:textSize="25sp">

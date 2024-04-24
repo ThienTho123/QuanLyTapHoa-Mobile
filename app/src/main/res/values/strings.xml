@@ -11,7 +11,11 @@
     <string name="login_failed">"Login failed"</string>
     <string-array name="chuc_vu_array">
         <item>Quản lí</item>
-        <item>Nhân viên</item>
+        <item>Nhân viên kho</item>
+        <item>Nhân viên thu ngân</item>
+        <item>Nhân viên bán hàng</item>
+        <item>Nhân viên giao hàng</item>
+        <item>Tạp vụ</item>
         <item>Bảo vệ</item>
     </string-array>
 </resources>

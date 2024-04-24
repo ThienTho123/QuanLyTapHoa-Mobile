@@ -66,7 +66,7 @@ public class ViewDetailNhanVienActivity extends AppCompatActivity {
         Log.d("EmployeeID", "ID truyền vào: " + userID); // In ra giá trị của ID để kiểm tra
 
         // Truy vấn dữ liệu từ Firebase
-        databaseReference.child("employee" + userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child( userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // Kiểm tra xem dữ liệu có tồn tại không

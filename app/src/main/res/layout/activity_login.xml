@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@drawable/background_intro"
     android:padding="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="serif"
             android:text="Đăng Nhập"
-            android:textColor="#FF5722"
+            android:textColor="#fff"
             android:textSize="48sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,8 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:hint="Tên đăng nhâp"
-        android:textColor="#0E0101"
-        android:textColorHint="#090404"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
         android:textSize="20dp"
         android:textStyle="italic" />
 
@@ -49,8 +49,8 @@
         android:hint="Mật khẩu "
         android:inputType="textPassword"
         android:paddingTop="20dp"
-        android:textColor="#070000"
-        android:textColorHint="#0E0606"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
         android:textSize="20dp"
         android:textStyle="italic" />
 
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="#FF5722"
+        android:backgroundTint="#0A6B38"
         android:fontFamily="sans-serif"
         android:text="Login"
         android:textAlignment="center"
@@ -73,7 +73,7 @@
         android:text="Quay lại"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:background="#FF5722"
+        android:backgroundTint="#80B841"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
