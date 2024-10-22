@@ -13,6 +13,13 @@ Dự án "Quản Lý Tạp Hóa" nhằm cung cấp một giải pháp hiệu qu�
 - **Giao Diện Thân Thiện:** Thiết kế giao diện dễ sử dụng, tối ưu hóa trải nghiệm người dùng trên thiết bị di động.
 
 - **Sửa Lỗi:** Liên tục cập nhật và sửa lỗi để cải thiện sự ổn định và hiệu suất của ứng dụng.
+  
+## 🛠️ Công Cụ Sử Dụng
+
+- **Ngôn Ngữ:** Java/Kotlin (Android)
+- **Framework:** Android SDK
+- **Cơ Sở Dữ Liệu:** Firebase
+- **IDE:** Android Studio
 
 ## 📦 Cài Đặt
 
@@ -33,8 +40,12 @@ Nếu bạn gặp bất kỳ vấn đề nào hoặc có ý kiến đóng góp, 
 
 | Quản Lý Tạp Hóa |
 |------------------|
-![image](https://github.com/ThienTho123/QuanLyTapHoa-Mobile/assets/129725593/your_image_link_here)
+![image](https://github.com/ThienTho123/QuanLyTapHoa-Mobile/blob/master/app/src/main/res/drawable/tiemtaphoa.png?raw=true)
 
 </div>
+
+## 📧 Liên Hệ
+
+Nếu bạn cần hỗ trợ hoặc có câu hỏi, hãy liên hệ với chúng tôi qua email: [thientho.izu03@gmail.com](mailto:thientho.izu03@gmail.com).
 
 Cảm ơn bạn đã sử dụng ứng dụng Quản Lý Tạp Hóa! Chúng tôi mong muốn nhận được phản hồi từ bạn để cải thiện sản phẩm của mình.
